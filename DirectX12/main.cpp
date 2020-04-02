@@ -4,6 +4,11 @@
 #include<iostream>
 #endif // _DEBUG
 
+
+const int window_width = 1024;
+const int window_height = 768;
+
+
 using namespace std;
 
 void DebugOutputFormatString(const char* format, ...)
@@ -41,12 +46,45 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	w.cbSize = sizeof(WNDCLASSEX);				// サイズ分先に確保
 	w.lpfnWndProc = (WNDPROC)WindowProcedure;	// ウィンドウプロシージャーのコールバック
-	w.lpszClassName = _T("DirectX12");			// アプリケーションの名前		 
+	w.lpszClassName = TEXT("DirectX12");			// アプリケーションの名前		 
 	w.hInstance = GetModuleHandle(nullptr);		// ハンドルの取得
 
+	RegisterClassEx(&w); // ウィンドウクラスをOSに伝える
+
+	RECT wrc = { 0, 0, window_width, window_height };
+	AdjustWindowRect(&wrc, WS_OVERLAPPEDWINDOW, false); // ウィンドウサイズの補正
+
+	// ウィンドウオブジェクトの生成
+	HWND hwnd = CreateWindow(w.lpszClassName,
+		TEXT("DirectX12"),
+		WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		wrc.right - wrc.left,
+		wrc.bottom - wrc.top,
+		nullptr,
+		nullptr,
+		w.hInstance,
+		nullptr);
+
+	ShowWindow(hwnd, SW_SHOW);
 
 
-	DebugOutputFormatString("Hello World");
-	getchar();
+	MSG msg = {};
+	while (true)
+	{
+		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+
+		if (msg.message == WM_QUIT)
+		{
+			break;
+		}
+	}
+
+	UnregisterClass(w.lpszClassName, w.hInstance);
 	return 0;
 }
