@@ -1,2 +1,3 @@
 ﻿  main.cpp
-d:\visualstudioproject\directx12\directx12\main.cpp(44): error C3861: '_T': 識別子が見つかりませんでした
+  DirectX12.vcxproj -> D:\VisualStudioProject\DirectX12\Debug\DirectX12.exe
+  DirectX12.vcxproj -> D:\VisualStudioProject\DirectX12\Debug\DirectX12.pdb (Partial PDB)

@@ -68,7 +68,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LibraryPath>C:\Program Files (x86)\Windows Kits\10\Lib\10.0.14393.0\um\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\um;C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\shared;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -110,7 +113,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DX12Initialize\Descriptor\Descriptor.cpp" />
+    <ClCompile Include="DX12Initialize\Command\CommandQueue.cpp" />
+    <ClCompile Include="DX12Initialize\Command\CommandList.cpp" />
+    <ClCompile Include="DX12Main\DX12Main.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="DX12Initialize\SwapChain\SwapChain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DX12Initialize\Descriptor\Descriptor.h" />
+    <ClInclude Include="DX12Initialize\Command\CommandQueue.h" />
+    <ClInclude Include="DX12Initialize\Command\CommandList.h" />
+    <ClInclude Include="DX12Main\DX12Main.h" />
+    <ClInclude Include="DX12Initialize\SwapChain\SwapChain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
